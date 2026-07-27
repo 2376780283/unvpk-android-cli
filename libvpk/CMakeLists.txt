@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 2.0)
-
+#  cmake_minimum_required(VERSION 3.5...3.30)
+cmake_minimum_required(VERSION 3.5...3.30)
 project(libvpk)
 
 include_directories("include")

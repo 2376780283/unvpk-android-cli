@@ -1,13 +1,16 @@
-cmake_minimum_required(VERSION 2.0)
+cmake_minimum_required(VERSION 3.5...3.30)
 
 project(vpk)
+
+# For Termux Locally Env
+# set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};/data/data/com.termux/files/usr/")
 
 option(WITH_UNVPK "Build unvpk" ON)
 
 find_package(PkgConfig)
 
 if(PKG_CONFIG_FOUND)
-	pkg_check_modules(FUSE fuse)
+	pkg_check_modules(FUSE fuse3)
 	if(FUSE_FOUND)
 		option(WITH_VPKFS "Build vpkfs" ON)
 	else()
@@ -37,10 +40,10 @@ add_definitions(-D_FILE_OFFSET_BITS=64)
 add_subdirectory(libvpk)
 
 if(WITH_UNVPK)
-	find_package(Boost COMPONENTS system filesystem program_options REQUIRED)
+	find_package(Boost COMPONENTS filesystem program_options REQUIRED)
 	add_subdirectory(unvpk)
 else()
-	find_package(Boost COMPONENTS system filesystem REQUIRED)
+	find_package(Boost COMPONENTS filesystem REQUIRED)
 endif()
 
 if(WITH_VPKFS)
